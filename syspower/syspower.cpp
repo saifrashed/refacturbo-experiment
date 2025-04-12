@@ -30,6 +30,11 @@ struct SMCParamStruct {
     iGPUPower = 'PCPG',   // Power: CPU Package GPU (watts)
     GPU0Power = 'PG0R',   // Power: GPU 0 Rail (watts)
     GPU1Power = 'PG1R',   // Power: GPU 1 Rail (watts)
+    CPU1Temp = 'TC1C',    // Temp: CPU Core 1 Temperature from PECI in C°
+    CPU2Temp = 'TC2C',    // Temp: CPU Core 2 Temperature from PECI in C°
+    CPU3Temp = 'TC3C',    // Temp: CPU Core 3 Temperature from PECI in C°
+    CPU4Temp = 'TC4C',    // Temp: CPU Core 4 Temperature from PECI in C°
+
   };
 
   // SMC keys are typed, and there are a number of numeric types. Support for
@@ -162,12 +167,18 @@ int main() {
   SMCKey PG0R{connect, SMCParamStruct::SMCKey::GPU0Power};
   SMCKey PG1R{connect, SMCParamStruct::SMCKey::GPU1Power};
 
+  SMCKey TC1C{connect, SMCParamStruct::SMCKey::CPU1Temp};
+  SMCKey TC2C{connect, SMCParamStruct::SMCKey::CPU2Temp};
+  SMCKey TC3C{connect, SMCParamStruct::SMCKey::CPU3Temp};
+  SMCKey TC4C{connect, SMCParamStruct::SMCKey::CPU4Temp};
+
+
   for (;;) {
     printf("\n");
     if (PSTR.Exists())
       printf("PSTR (System Total):    %g\n", PSTR.Read());
     if (PCPC.Exists())
-      printf("PCPC (CPU package CPU): %g\n", PCPC.Read());
+      printf("PCPC (CPU package core power (PECI) in watts): %g\n", PCPC.Read());
     if (PCPG.Exists())
       printf("PCPG (CPU package GPU): %g\n", PCPG.Read());
     if (PCPT.Exists())
@@ -176,7 +187,16 @@ int main() {
       printf("PG0R (GPU 0 rail):      %g\n", PG0R.Read());
     if (PG1R.Exists())
       printf("PG1R (GPU 1 rail):      %g\n", PG1R.Read());
+    if (TC1C.Exists())
+      printf("TC1C (CPU 1 Core Temperature):  %g\n", TC1C.Read());
+    if (TC2C.Exists())
+      printf("TC2C (CPU 2 Core Temperature) :  %g\n", TC2C.Read());
+    if (TC3C.Exists())
+      printf("TC3C (CPU 3 Core Temperature):  %g\n", TC3C.Read());
+    if (TC4C.Exists())
+      printf("TC4C (CPU 4 Core Temperature):  %g\n", TC4C.Read());
     fflush(stdout);
-    sleep(1);
+    // sleep(1);
+    usleep(100000); // Sleep for 100 milliseconds
   }
 }
