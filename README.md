@@ -60,10 +60,18 @@ https://edc.intel.com/content/www/us/en/design/ipla/software-development-platfor
 
 https://docs.kernel.org/peci/peci.html
 
+https://www-inf.telecom-sudparis.eu/COURS/cen/Mesures/tp-perf.html
 
 # Terms
 
-PECI stands for Platform Environment Control Interface
+
+AppleSMC (Apple System Management Controller) is a critical component in macOS for managing hardware functions, including power and thermal sensors.
+
+IOkit, a framework in macOS, facilitates communication between the operating system and hardware devices, including AppleSMC.
+
+
+Intel PECI (Platform Environment Control Interface) is a proprietary Intel interface introduced in 2006 with the Intel Core 2 Duo, used for monitoring and managing Intel processors, including reading processor temperature and power consumption data.
+
 
 
 

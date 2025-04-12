@@ -180,9 +180,9 @@ int main() {
     if (PCPC.Exists())
       printf("PCPC (CPU package core power (PECI) in watts): %g\n", PCPC.Read());
     if (PCPG.Exists())
-      printf("PCPG (CPU package GPU): %g\n", PCPG.Read());
+      printf("PCPG (CPU package Gfx power (PECI) in watts: %g\n", PCPG.Read());
     if (PCPT.Exists())
-      printf("PCPT (CPU package Tot): %g\n", PCPT.Read());
+      printf("PCPT (CPU package total power (PECI) in watts): %g\n", PCPT.Read());
     if (PG0R.Exists())
       printf("PG0R (GPU 0 rail):      %g\n", PG0R.Read());
     if (PG1R.Exists())
