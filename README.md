@@ -1,4 +1,54 @@
 
+   ___      ___         __           __      
+  / _ \___ / _/__ _____/ /___ ______/ /  ___ 
+ / , _/ -_) _/ _ `/ __/ __/ // / __/ _ \/ _ \
+/_/|_|\__/_/ \_,_/\__/\__/\_,_/_/ /_.__/\___/
+                                             
+
+# Usage
+
+Navigate into the `instrument` directory:
+```bash
+cd instrument
+```
+
+Compile the measurement instrument:
+```bash
+python3 ./orchestrator.py build
+```
+
+Setup the virtual environment:
+```bash
+python3 -m venv venv
+```
+
+Ensure virtual environment is activated:
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+Run warmup process:
+```bash
+python3 ./orchestrator.py warmup
+```
+
+Run the measurment for baseline:
+```bash
+python3 ./orchestrator.py baseline
+```
+
+Run the measurment for java program:
+```bash
+python3 ./orchestrator.py --path "<Absolute path>" java
+```
+
+
+
 # Terms
 
 AppleSMC (Apple System Management Controller) is a critical component in macOS for managing hardware functions, including power and thermal sensors.
@@ -6,17 +56,6 @@ AppleSMC (Apple System Management Controller) is a critical component in macOS f
 IOkit, a framework in macOS, facilitates communication between the operating system and hardware devices, including AppleSMC.
 
 Intel PECI (Platform Environment Control Interface) is a proprietary Intel interface introduced in 2006 with the Intel Core 2 Duo, used for monitoring and managing Intel processors, including reading processor temperature and power consumption data.
-
-# Commands to run
-make && ./syspower
-
-make && ./smc -h
-
-make &&  ./smc -l 
-
-# Run the following to execute java program
-
-./syspower java -cp . p1.java
 
 
 # Some useful links 
