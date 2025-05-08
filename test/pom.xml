@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+	<modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>smallsql</artifactId>
+    <version>0.21</version>
+    <packaging>jar</packaging>
 	<name>smallsql0.21_src</name>
 	<comment></comment>
 	<projects>
