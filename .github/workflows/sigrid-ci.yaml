@@ -18,11 +18,11 @@ jobs:
         uses: actions/checkout@v4
 
       # Set up Java (for the build)
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'OpenJDK'
+          java-version: '17'
+          distribution: 'temurin'
 
       # Build and test the project
       - name: Build with Maven
