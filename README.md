@@ -7,10 +7,8 @@
 # Prerequisites
 
 - Python 3.8 or higher
-- MacOS (IOKit)
-- Intel CPU
-- Apple clang version 17.0.0 
-- GNU Make 3.81
+- MacOS
+- Powermetrics
 
 # Usage
 
@@ -46,7 +44,11 @@ python3 ./orchestrator.py warmup
 
 Run the measurment for command:
 ```bash
-sudo python3 ./orchestrator.py --command <command to measure>
+sudo python3 ./orchestrator.py measure "<command to measure>"
 ```
+
+Run the analysis:
+```bash
+sudo python3 ./orchestrator.py analyze  
 
 
