@@ -3,7 +3,7 @@
  / , _/ -_) _/ _ `/ __/ __/ // / __/ _ \/ _ \
 /_/|_|\__/_/ \_,_/\__/\__/\_,_/_/ /_.__/\___/
 ```    
-                              
+
 # Prerequisites
 
 - Python 3.8 or higher
@@ -19,7 +19,7 @@ Navigate into the `instrument` directory:
 cd instrument
 ```
 
-Compile the measurement instrument:
+Compile the sampler:
 ```bash
 python3 ./orchestrator.py build
 ```
@@ -44,14 +44,9 @@ Run warmup process:
 python3 ./orchestrator.py warmup
 ```
 
-Run the measurment for baseline:
+Run the measurment for command:
 ```bash
-python3 ./orchestrator.py baseline
-```
-
-Run the measurment for java program:
-```bash
-python3 ./orchestrator.py --path "<Absolute path>" java
+sudo python3 ./orchestrator.py --command <command to measure>
 ```
 
 
@@ -78,3 +73,5 @@ https://edc.intel.com/content/www/us/en/design/ipla/software-development-platfor
 https://docs.kernel.org/peci/peci.html
 
 https://www-inf.telecom-sudparis.eu/COURS/cen/Mesures/tp-perf.html
+
+

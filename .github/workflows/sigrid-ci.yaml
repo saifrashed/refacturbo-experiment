@@ -1,0 +1,60 @@
+name: Sigrid CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Java (for the build)
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'OpenJDK'
+
+      # Build and test the project
+      - name: Build with Maven
+        run: mvn clean compile
+
+      - name: Run unit tests
+        run: mvn test surefire-report:report
+
+      # Set up Python for Sigrid CI
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      # Clone Sigrid CI client scripts
+      - name: Clone Sigrid CI scripts
+        run: git clone https://github.com/Software-Improvement-Group/sigridci.git sigridci
+
+      # Run Sigrid CI for pull requests (except main branch)
+      - name: Run Sigrid CI (Feedback)
+        if: github.event_name == 'pull_request'
+        env:
+          SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
+        run: |
+          ./sigridci/sigridci/sigridci.py --customer saifrashed --system refacturbo --source .
+        continue-on-error: true
+
+      # Run Sigrid CI for publishing (main branch only)
+      - name: Run Sigrid CI (Publish)
+        if: github.ref == 'refs/heads/main'
+        env:
+          SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
+        run: |
+          ./sigridci/sigridci/sigridci.py --customer saifrashed --system refacturbo --source . --publish
+        continue-on-error: true
