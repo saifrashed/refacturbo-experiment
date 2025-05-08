@@ -43,7 +43,6 @@ jobs:
       # Clone Sigrid CI client scripts (outside ./test to avoid nesting)
       - name: Clone Sigrid CI scripts
         run: git clone https://github.com/Software-Improvement-Group/sigridci.git sigridci
-        working-directory: .  # Run this in the repository root
 
       # Run Sigrid CI for pull requests (except master branch)
       - name: Run Sigrid CI (Feedback)
@@ -52,7 +51,6 @@ jobs:
           SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
         run: |
           python3 sigridci/sigridci.py --customer saifrashed --system refacturbo --source .
-        working-directory: .  # Run in the repository root where sigridci is cloned
         continue-on-error: true
 
       # Run Sigrid CI for publishing (master branch only)
@@ -62,5 +60,4 @@ jobs:
           SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
         run: |
           python3 sigridci/sigridci.py --customer saifrashed --system refacturbo --source . --publish
-        working-directory: .  # Run in the repository root where sigridci is cloned
         continue-on-error: true
