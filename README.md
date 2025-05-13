@@ -52,3 +52,7 @@ Run the analysis:
 sudo python3 ./orchestrator.py analyze  
 
 
+Example:
+```
+sudo python3 ./orchestrator.py measure "java "/Users/user/Downloads/refacturbo-experiment/experiments/s1/unoptimized/s1.java"
+```

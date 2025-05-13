@@ -9,10 +9,11 @@ import signal
 import numpy as np
 from scipy.stats import shapiro
 
-REPETITIONS = 50
+REPETITIONS = 10
 COOLDOWN_MS = 5000
 
-BASELINE_EC = 10
+BASELINE_EC = 26.0865
+BASELINE_T = 4.0288
 
 def run_command(command, description):
     """Execute a shell command and handle errors."""
@@ -78,7 +79,8 @@ def analyze():
     durations = []
     average_power = []
     average_joules = []
-  
+    average_corrected_joules = []
+
     for i in range(1, REPETITIONS + 1):
         file_path = os.path.join("data", f"{i}.txt")
         
@@ -114,6 +116,10 @@ def analyze():
                 energy = np.trapezoid(powers, timestamps) 
                 average_joules.append(energy)
 
+                # Calculate average corrected energy
+                corrected_energy = energy - ((BASELINE_EC / BASELINE_T) * duration)
+                average_corrected_joules.append(corrected_energy)
+
         except Exception as e:
             print(f"Error reading or parsing {file_path}: {e}")
             continue
@@ -130,14 +136,14 @@ def analyze():
         stat, p_value = shapiro(durations)
         normality = "Normal" if p_value > 0.05 else "Not Normal"
 
-        report.append("Analysis Results for Duration (s):")
+        report.append("\nAnalysis Results for Duration (s):")
         report.append(f"Mean: {mean_duration:.4f}")
         report.append(f"Standard Deviation: {std_dev_duration:.4f}")
         report.append(f"Median: {median_duration:.4f}")
         report.append(f"Min: {min_duration:.4f}")
         report.append(f"Max: {max_duration:.4f}")
         report.append(f"Coefficient of Variation: {coeff_var_duration:.2f}%")
-        report.append(f"Shapiro-Wilk: W={stat:.4f}, p-value={p_value:.4f}, {normality}  \n")
+        report.append(f"Shapiro-Wilk: W={stat:.4f}, p-value={p_value:.4f}, {normality}")
 
 
     if average_power:
@@ -171,7 +177,7 @@ def analyze():
         stat, p_value = shapiro(average_joules)
         normality = "Normal" if p_value > 0.05 else "Not Normal"
 
-        report.append("Analysis Results for Average Energy (Joules):")
+        report.append("\nAnalysis Results for Average Energy (Joules):")
         report.append(f"Mean: {mean:.4f}")
         report.append(f"Standard Deviation: {std_dev:.4f}")
         report.append(f"Median: {median:.4f}")
@@ -180,8 +186,24 @@ def analyze():
         report.append(f"Coefficient of Variation: {coeff_var:.2f}%")
         report.append(f"Shapiro-Wilk: W={stat:.4f}, p-value={p_value:.4f}, {normality}")
 
-    if BASELINE_EC:
-        print("Baseline Energy Consumption (EC):")
+    if BASELINE_EC and BASELINE_T:
+        mean = np.mean(average_joules)
+        std_dev = np.std(average_joules, ddof=1)
+        median = np.median(average_joules)
+        min_val = np.min(average_joules)
+        max_val = np.max(average_joules)
+        coeff_var = (std_dev / mean) * 100 if mean else float('inf')
+        stat_power, p_value_power = shapiro(average_power)
+        normality_power = "Normal" if p_value_power > 0.05 else "Not Normal"
+
+        report.append("\nCorrected Energy Consumption (EC):")
+        report.append(f"Mean: {mean_power:.4f}")
+        report.append(f"Standard Deviation: {std_dev_power:.4f}")
+        report.append(f"Median: {median_power:.4f}")
+        report.append(f"Min: {min_val_power:.4f}")
+        report.append(f"Max: {max_val_power:.4f}")
+        report.append(f"Coefficient of Variation: {coeff_var_power:.2f}%")
+        report.append(f"Shapiro-Wilk: W={stat_power:.4f}, p-value={p_value_power:.4f}, {normality_power}")
 
 
     with open(os.path.join("data", "summary.txt"), 'w') as summary_file:
@@ -190,9 +212,6 @@ def analyze():
 
     print("Ended: Analyzing measurements")
 
-# 1 code smell per table
-# Table has 4 prompts (Zero shot, One shot, Few shot, and Chain of thought)
-# Each prompt has 4 rows (Mean, Standard Deviation, Median, Min, Max, Coefficient of Variation)
 
 def main():
     # Set up argument parser
@@ -221,7 +240,9 @@ if __name__ == "__main__":
     main()
 
 
-
+# 1 code smell per table
+# Table has 4 prompts (Zero shot, One shot, Few shot, and Chain of thought)
+# Each prompt has 4 rows (Mean, Standard Deviation, Median, Min, Max, Coefficient of Variation)
 
 # sudo ./sampler.sh java -cp . /Users/saifrashed/Downloads/uva-master/master-project/refacturbo-experiment/experiments/s1/optimized/s1.java
 

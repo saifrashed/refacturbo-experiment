@@ -3,7 +3,7 @@ public class s1 {
         long startTime = System.currentTimeMillis();
 
         // Define matrix size
-        int n = 2000;
+        int n = 1000;
         // Initialize two matrices with random values
         int[][] A = new int[n][n];
         int[][] B = new int[n][n];
