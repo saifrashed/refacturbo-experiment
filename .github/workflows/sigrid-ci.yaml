@@ -60,7 +60,7 @@ jobs:
         env:
           SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
         run: |
-          python3 ./sigridci/sigridci/sigridci.py --customer saifrashed --system refacturbo --source .
+          python3 sigridci/sigridci/sigridci.py --customer saifrashed --system refacturbo --source .
         continue-on-error: true
 
       # Run Sigrid CI for publishing (master branch only)
@@ -69,5 +69,5 @@ jobs:
         env:
           SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
         run: |
-          python3 ./sigridci/sigridci/sigridci.py --customer saifrashed --system refacturbo --source . --publish
+          python3 sigridci/sigridci/sigridci.py --customer saifrashed --system refacturbo --source . --publish
         continue-on-error: true
