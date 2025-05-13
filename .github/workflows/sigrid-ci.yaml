@@ -44,6 +44,16 @@ jobs:
       - name: Clone Sigrid CI scripts
         run: git clone https://github.com/Software-Improvement-Group/sigridci.git test/sigridci
 
+      # Debug: Log where Sigrid CI is cloned and directory structure
+      - name: Debug Sigrid CI clone location and structure
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "Listing contents of test/sigridci:"
+          ls -R test/sigridci
+          echo "Checking for sigridci.py:"
+          find test/sigridci -name sigridci.py
+
       # Run Sigrid CI for pull requests (except master branch)
       - name: Run Sigrid CI (Feedback)
         if: github.event_name == 'pull_request'
