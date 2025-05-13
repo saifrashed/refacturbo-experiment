@@ -12,8 +12,8 @@ from scipy.stats import shapiro
 REPETITIONS = 10
 COOLDOWN_MS = 5000
 
-BASELINE_EC = 26.0865
-BASELINE_T = 4.0288
+BASELINE_EC = None
+BASELINE_T = None
 
 def run_command(command, description):
     """Execute a shell command and handle errors."""
