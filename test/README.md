@@ -1,29 +1,26 @@
-JavaParser and Maven sample
----
+ # Javalin
+This readme is for Javalin developers. 
+If you are looking for the general readme, see [.github/README.md](.github/README.md).
 
-This fully working sample Maven project parses and generates code with [JavaParser](http://www.javaparser.org).
+## Getting started
+```sh
+gh repo clone javalin/javalin
+cd javalin
+./mvnw package   #(or `mvn package` if you have maven installed)
+./mvnw test      #(or `mvn test` if you have maven installed)
+```
 
-This sample is targeted at people without [Maven](https://maven.apache.org/) experience.
+If you run `test` before `package`, you will get an error in the OSGI artifact:
 
-To build it, you will need to download and unpack the latest (or recent) version of Maven (https://maven.apache.org/download.cgi)
-and put the `mvn` command on your path.
+```
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-dependency-plugin:2.8:unpack-dependencies (unpack-everything) on project javalin-osgi: Artifact has not been packaged yet. When used on reactor artifact, unpack should be executed after packaging: see MDEP-98. -> [Help 1]
+```
 
-Then, you will need to install a Java 1.8 (or higher) JDK (not JRE!), and make sure you can run `java` from the command line.
+## Running maven commands
+We have Maven wrapper included in the project, which means that
+you can run Maven commands without having Maven installed on your system.
+Simply replace any `mvn goal` command with `./mvnw goal`.
 
-If required, install git. If you haven't already done so, clone this sample repository with `git clone https://github.com/javaparser/javaparser-maven-sample.git`.
-
-Change to the folder of where this sample project was installed (where the pom.xml file is located).
-Now run `mvn clean install` and Maven will compile your project, 
-and put the results into two jar files in the `target` directory.
-
-You can now run the sample from the command line with
-`java -jar target/javaparser-maven-sample-1.0-SNAPSHOT-shaded.jar`.
-This runs the sample program, LogicPositivizer, which reads, parses, and modifies the code in resources/Blabla.java and then writes the modified file with the same name to the output folder.
-
-To better understand this sample, you can read [JavaParser: Visited.](https://leanpub.com/javaparservisited) In this book, key contributors to the JavaParser library teach you how you can use JavaParser to programmatically analyse, transform and generate your java code base.
-
-How you run this code is up to you, but usually you would start by using an IDE like [NetBeans](https://netbeans.org/), [Intellij IDEA](https://www.jetbrains.com/idea/), or [Eclipse](https://eclipse.org/ide/).
-
-The Maven dependencies may lag behind the official releases a bit.
-
-If you notice some problems with this setup, please open an issue.
+## Deploy
+The `sonatype-oss-release` profile is used for releasing the project artifacts to Sonatype OSSRH (OSS Repository Hosting). 
+This is only used by tipsy to release the project.
