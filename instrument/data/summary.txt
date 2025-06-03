@@ -1,36 +1,27 @@
 
 Analysis Results for Duration (s):
-Mean: 0.0000
-Standard Deviation: 0.0000
-Median: 0.0000
-Min: 0.0000
-Max: 0.0000
-Coefficient of Variation: inf%
-Shapiro-Wilk: W=1.0000, p-value=1.0000, Normal
+Mean: 2.5843
+Standard Deviation: 0.1571
+Median: 2.5210
+Min: 2.5030
+Max: 3.0370
+Coefficient of Variation: 6.08%
+Shapiro-Wilk: W=0.4785, p-value=0.0000, Not Normal
 
 Analysis Results for Average Power (W):
-Mean: 15.1000
-Standard Deviation: 4.3767
-Median: 15.4700
-Min: 10.5500
-Max: 19.2800
-Coefficient of Variation: 28.99%
-Shapiro-Wilk: W=0.9946, p-value=0.8601, Normal
+Mean: 7.1790
+Standard Deviation: 1.8247
+Median: 6.6258
+Min: 5.2733
+Max: 14.9080
+Coefficient of Variation: 25.42%
+Shapiro-Wilk: W=0.6237, p-value=0.0000, Not Normal
 
 Analysis Results for Average Energy (Joules):
-Mean: 0.0000
-Standard Deviation: 0.0000
-Median: 0.0000
-Min: 0.0000
-Max: 0.0000
-Coefficient of Variation: inf%
-Shapiro-Wilk: W=1.0000, p-value=1.0000, Normal
-
-Corrected Energy Consumption (EC):
-Mean: 15.1000
-Standard Deviation: 4.3767
-Median: 15.4700
-Min: 10.5500
-Max: 19.2800
-Coefficient of Variation: 28.99%
-Shapiro-Wilk: W=0.9946, p-value=0.8601, Normal
+Mean: 18.3356
+Standard Deviation: 5.9124
+Median: 16.4945
+Min: 12.8969
+Max: 42.3273
+Coefficient of Variation: 32.25%
+Shapiro-Wilk: W=0.6027, p-value=0.0000, Not Normal

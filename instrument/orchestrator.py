@@ -9,7 +9,7 @@ import signal
 import numpy as np
 from scipy.stats import shapiro
 
-REPETITIONS = 10
+REPETITIONS = 30
 COOLDOWN_MS = 5000
 
 BASELINE_EC = None

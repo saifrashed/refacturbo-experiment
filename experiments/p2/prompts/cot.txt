@@ -1,0 +1,14 @@
+Question: Task description
+
+// Step 1
+Step: Reasoning process + Conclusion
+
+// Step 2
+Step: Reasoning process + Conclusion
+
+// Step 3
+Step: Reasoning process + Conclusion
+
+...
+
+Prompt: Original code

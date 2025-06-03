@@ -1,0 +1,9 @@
+Task: Task description
+
+Example 1: Optimized code example 1
+
+Example 2: Optimized code example 2
+
+...
+
+Prompt: Original code
