@@ -1,4 +1,4 @@
-public class p2 {
+public class program {
     public static final int INTERNAL_REPETITION_COUNT = 30;
 
     public static void main(String[] args) {
