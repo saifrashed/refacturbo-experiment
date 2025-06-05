@@ -1,11 +1,11 @@
 public class program {
-    public static final int INTERNAL_REPETITION_COUNT = 30;
+    public static final int INTERNAL_REPETITION_COUNT = 3000;
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
 
         for (int x = 0; x < INTERNAL_REPETITION_COUNT; x++) {
-            generateFibonacciString(10000);
+            generateFibonacciString(x);
         }
 
         long endTime = System.currentTimeMillis();
