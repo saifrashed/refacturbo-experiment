@@ -5,7 +5,7 @@ public class program {
         long startTime = System.currentTimeMillis();
 
         for (int x = 0; x < INTERNAL_REPETITION_COUNT; x++) {
-            getFibonacci(59);
+            getFibonacci(49);
         }
 
         long endTime = System
