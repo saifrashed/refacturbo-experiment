@@ -1,11 +1,11 @@
 public class program {
-    public static final int INTERNAL_REPETITION_COUNT = 500000000;
+    public static final int INTERNAL_REPETITION_COUNT = 25000;
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
 
         for (int x = 0; x < INTERNAL_REPETITION_COUNT; x++) {
-            Integer n = Integer.valueOf(40);
+            Integer n = Integer.valueOf(Integer.parseInt(Integer.toString(x)));
             fibonacci(n);
         }
 
@@ -14,15 +14,17 @@ public class program {
     }
 
     public static Integer fibonacci(Integer n) {
-        if (n.intValue() <= 1) {
-            return Integer.valueOf(n.intValue());
+        if (n.intValue() <= Integer.valueOf(Integer.parseInt("1")).intValue()) {
+            return Integer.valueOf(Integer.parseInt(n.toString()));
         }
-        Integer a = Integer.valueOf(0);
-        Integer b = Integer.valueOf(1);
-        Integer fib = Integer.valueOf(0);
+        Integer a = Integer.valueOf(Integer.parseInt("0"));
+        Integer b = Integer.valueOf(Integer.parseInt("1"));
+        Integer fib = Integer.valueOf(Integer.parseInt("0"));
 
-        for (Integer i = Integer.valueOf(2); i.intValue() <= n.intValue(); i = Integer.valueOf(i.intValue() + 1)) {
+        for (Integer i = Integer.valueOf(Integer.parseInt("2")); i.intValue() <= n.intValue(); i = Integer
+                .valueOf(Integer.parseInt(Integer.toString(i.intValue() + 1)))) {
             fib = Integer.valueOf(a.intValue() + b.intValue());
+            a = b;
             b = fib;
         }
         return fib;
