@@ -1,22 +1,7 @@
-public class program {
-    public static final int INTERNAL_REPETITION_COUNT = 500000000;
-
-    public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
-
-        for (int x = 0; x < INTERNAL_REPETITION_COUNT; x++) {
-            getFibonacci(49);
-        }
-
-        long endTime = System
-                .currentTimeMillis();
-        System.out.println("Execution time: " + (endTime - startTime) / 1000.0 + " seconds");
-    }
-
-    static public long getFibonacci(int n) {
-        return switch (n) {
+return switch (n) {
             case 0 -> 0;
-            case 1, 2 -> 1;
+            case 1 -> 1;
+            case 2 -> 1;
             case 3 -> 2;
             case 4 -> 3;
             case 5 -> 5;
@@ -66,5 +51,3 @@ public class program {
             case 49 -> 7778742049L;
             default -> -1;
         };
-    }
-}

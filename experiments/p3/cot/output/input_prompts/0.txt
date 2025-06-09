@@ -1,0 +1,29 @@
+Task: Remove excessive boxing of a primitive
+
+Q: How do we identify excessive boxing in the code? 
+A: Look for instances where wrapper classes (e.g., Integer, Long, Double) are used instead of primitives (e.g., int, long, double), especially in loops, arithmetic operations, or generic collections. Check for operations that may trigger autoboxing/unboxing, such as assignments or calculations involving wrapper types.
+
+Q: What steps should be taken to remove excessive boxing? 
+A: 1. Identify variables declared with wrapper classes (e.g., Long, Integer). 2. Replace these with their primitive counterparts (e.g., long, int) if no object-specific functionality (like nullability) is required. 3. Ensure any operations involving these variables (e.g., arithmetic, comparisons) use primitives to avoid implicit boxing/unboxing. 4. Verify that the change does not break functionality, such as compatibility with APIs requiring objects. 5. Test the modified code to confirm performance improvement and correctness.
+
+Q: How does this improve the code? 
+A: Using primitives avoids the overhead of object creation, memory allocation, and garbage collection associated with autoboxing/unboxing. This leads to faster execution, reduced memory usage, and better scalability, especially in performance-critical sections like loops or scientific computations.
+
+Code:
+
+    public static Integer fibonacci(Integer n) {
+        if (n.intValue() <= Integer.valueOf(Integer.parseInt("1")).intValue()) {
+            return Integer.valueOf(Integer.parseInt(n.toString()));
+        }
+        Integer a = Integer.valueOf(Integer.parseInt("0"));
+        Integer b = Integer.valueOf(Integer.parseInt("1"));
+        Integer fib = Integer.valueOf(Integer.parseInt("0"));
+
+        for (int i = 2; i <= n; i++) {
+            fib = a + b;
+            a = b;
+            b = fib;
+        }
+
+        return fib;
+    }
