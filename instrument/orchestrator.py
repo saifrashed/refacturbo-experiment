@@ -9,11 +9,11 @@ import signal
 import numpy as np
 from scipy.stats import shapiro
 
-REPETITIONS = 30
+REPETITIONS = 50
 COOLDOWN_MS = 5000
 
-BASELINE_EC = None
-BASELINE_T = None
+BASELINE_EC = 18.7119
+BASELINE_T = 4.0303
 
 def run_command(command, description):
     """Execute a shell command and handle errors."""
@@ -187,23 +187,23 @@ def analyze():
         report.append(f"Shapiro-Wilk: W={stat:.4f}, p-value={p_value:.4f}, {normality}")
 
     if BASELINE_EC and BASELINE_T:
-        mean = np.mean(average_joules)
-        std_dev = np.std(average_joules, ddof=1)
-        median = np.median(average_joules)
-        min_val = np.min(average_joules)
-        max_val = np.max(average_joules)
+        mean = np.mean(average_corrected_joules)
+        std_dev = np.std(average_corrected_joules, ddof=1)
+        median = np.median(average_corrected_joules)
+        min_val = np.min(average_corrected_joules)
+        max_val = np.max(average_corrected_joules)
         coeff_var = (std_dev / mean) * 100 if mean else float('inf')
-        stat_power, p_value_power = shapiro(average_power)
-        normality_power = "Normal" if p_value_power > 0.05 else "Not Normal"
+        stat, p_value = shapiro(average_corrected_joules)
+        normality = "Normal" if p_value > 0.05 else "Not Normal"
 
         report.append("\nCorrected Energy Consumption (EC):")
-        report.append(f"Mean: {mean_power:.4f}")
-        report.append(f"Standard Deviation: {std_dev_power:.4f}")
-        report.append(f"Median: {median_power:.4f}")
-        report.append(f"Min: {min_val_power:.4f}")
-        report.append(f"Max: {max_val_power:.4f}")
-        report.append(f"Coefficient of Variation: {coeff_var_power:.2f}%")
-        report.append(f"Shapiro-Wilk: W={stat_power:.4f}, p-value={p_value_power:.4f}, {normality_power}")
+        report.append(f"Mean: {mean:.4f}")
+        report.append(f"Standard Deviation: {std_dev:.4f}")
+        report.append(f"Median: {median:.4f}")
+        report.append(f"Min: {min_val:.4f}")
+        report.append(f"Max: {max_val:.4f}")
+        report.append(f"Coefficient of Variation: {coeff_var:.2f}%")
+        report.append(f"Shapiro-Wilk: W={stat:.4f}, p-value={p_value:.4f}, {normality}")
 
 
     with open(os.path.join("data", "summary.txt"), 'w') as summary_file:
@@ -238,120 +238,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# 1 code smell per table
-# Table has 4 prompts (Zero shot, One shot, Few shot, and Chain of thought)
-# Each prompt has 4 rows (Mean, Standard Deviation, Median, Min, Max, Coefficient of Variation)
-
-# sudo ./sampler.sh java -cp . /Users/saifrashed/Downloads/uva-master/master-project/refacturbo-experiment/experiments/s1/optimized/s1.java
-
-
-    #   # Construct command
-    # cmd = f"./sampler"
-    
-    # # Run command multiple times with cooldown and rename measurement file
-    # for i in range(REPETITIONS):
-    #     print(f"Run {i+1}/{REPETITIONS}")
-    #     run_command(cmd, f"Baseline command with path {args.path}")
-        
-    #     # Rename measurement.txt to measurement_<index>.txt
-    #     old_file = os.path.join("measurement", "measurement.txt")
-    #     new_file = os.path.join("measurement", f"{i+1}.txt")
-    #     try:
-    #         if os.path.exists(old_file):
-    #             os.rename(old_file, new_file)
-    #         else:
-    #             print(f"Warning: {old_file} not found after run {i+1}")
-    #     except OSError as e:
-    #         print(f"Error renaming {old_file} to {new_file}: {e}")
-        
-    #     # Sleep for cooldown period
-    #     if i < REPETITIONS - 1:
-    #         time.sleep(COOLDOWN_MS / 1000.0)
-
-
-
-#  # Construct command
-#     cmd = f"./sampler 'java -cp . {args.path}'"
-    
-#     # Run Java command multiple times with cooldown and rename measurement file
-#     for i in range(REPETITIONS):
-#         print(f"Run {i+1}/{REPETITIONS}")
-#         run_command(cmd, f"Java command with path {args.path}")
-        
-#         # Rename measurement.txt to measurement_<index>.txt
-#         old_file = os.path.join("measurement", "measurement.txt")
-#         new_file = os.path.join("measurement", f"{i+1}.txt")
-#         try:
-#             if os.path.exists(old_file):
-#                 os.rename(old_file, new_file)
-#             else:
-#                 print(f"Warning: {old_file} not found after run {i+1}")
-#         except OSError as e:
-#             print(f"Error renaming {old_file} to {new_file}: {e}")
-        
-#         # Sleep for cooldown period
-#         if i < REPETITIONS - 1:
-#             time.sleep(COOLDOWN_MS / 1000.0)
-
-
-
-  # Initialize lists to store the four values across all measurements
-    # measurement_times = []
-    # execution_times = []
-    # total_energies = []
-    # average_powers = []
-    
-    # # Directory containing measurement files
-    # measurement_dir = "data"
-    
-    # # Iterate over the expected measurement files (1.txt to 50.txt)
-    # for i in range(1, REPETITIONS + 1):
-    #     file_path = os.path.join(measurement_dir, f"{i}.txt")
-        
-    #     # Check if the file exists
-    #     if not os.path.exists(file_path):
-    #         print(f"Warning: Measurement file {file_path} not found")
-    #         continue
-        
-    #     try:
-    #         # Read and parse the measurement file
-    #         with open(file_path, 'r') as file:
-    #             lines = file.readlines()
-                
-    #             # Extract the four key values from the first four lines
-                
-        
-    #     except Exception as e:
-    #         print(f"Error reading or parsing {file_path}: {e}")
-    #         continue
-            
-    
-    # # Check if any data was collected
-    # if not measurement_times:
-    #     print("Error: No valid measurement data found")
-    #     return
-
-
-    # # print("\nAnalysis Results:")
-    # # print(f"Measurement Times (sec): {measurement_times}")
-    # # print(f"Execution Times (sec): {execution_times}")
-    # # print(f"Total Energy Consumed (joules): {total_energies}")
-    # # print(f"Average Power (W): {average_powers}")
-
-    # # List of datasets and their names
-    # datasets = [
-    #     (measurement_times, "Measurement Time"),
-    #     (execution_times, "Execution Time"),
-    #     (total_energies, "Total Energy Consumed"),
-    #     (average_powers, "Average Power")
-    # ]
-    
-    # for data, name in datasets:
-    #     if len(data) < 3:
-    #         print(f"{name}: Sample size too small for Shapiro-Wilk test (n={len(data)})")
-    #         continue
-    #     stat, p_value = shapiro(data)
-    #     normality = "Normal" if p_value > 0.05 else "Not Normal"
-    #     print(f"{name}: W={stat:.4f}, p-value={p_value:.4f}, {normality}")
