@@ -1,5 +1,5 @@
 public class program {
-    public static final int INTERNAL_REPETITION_COUNT = 3000;
+    public static final int INTERNAL_REPETITION_COUNT = 15000;
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
@@ -25,4 +25,5 @@ public class program {
             b = next;
         }
         return result.toString();
-    }}
+    }
+}
