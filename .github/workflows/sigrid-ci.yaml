@@ -1,0 +1,73 @@
+name: Sigrid CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./test  # Set default working directory to ./test for all run steps
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Java (for the build)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Build and test the project
+      - name: Build with Maven
+        run: mvn clean compile
+
+      - name: Run unit tests
+        run: mvn test surefire-report:report
+
+      # Set up Python for Sigrid CI
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      # Clone Sigrid CI client scripts (outside ./test to avoid nesting)
+      - name: Clone Sigrid CI scripts
+        run: git clone https://github.com/Software-Improvement-Group/sigridci.git test/sigridci
+
+      # Debug: Log where Sigrid CI is cloned and directory structure
+      - name: Debug Sigrid CI clone location and structure
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "Listing contents of test/sigridci:"
+          ls -R test/sigridci
+          echo "Checking for sigridci.py:"
+          find test/sigridci -name sigridci.py
+
+      # Run Sigrid CI for pull requests (except master branch)
+      - name: Run Sigrid CI (Feedback)
+        if: github.event_name == 'pull_request'
+        env:
+          SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
+        run: |
+          python3 test/sigridci/sigridci/sigridci.py --customer uvarefacturbo --system refacturbo --source .
+        continue-on-error: true
+
+      # Run Sigrid CI for publishing (master branch only)
+      - name: Run Sigrid CI (Publish)
+        if: github.ref == 'refs/heads/master'
+        env:
+          SIGRID_CI_TOKEN: ${{ secrets.SIGRID_CI_TOKEN }}
+        run: |
+          python3 test/sigridci/sigridci/sigridci.py --customer uvarefacturbo --system refacturbo --source . --publish
+        continue-on-error: true

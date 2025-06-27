@@ -1,0 +1,16 @@
+Task: Remove excessive boxing of a primitive
+
+Noncompliant example:
+Long count = 0L;
+for (long i = 0; i < Integer.MAX_VALUE; i++) {
+count += i;
+}
+
+
+Compliant example:
+long count = 0L;
+for (long i = 0; i < Integer.MAX_VALUE; i++) {
+count += i;
+}
+
+Code:

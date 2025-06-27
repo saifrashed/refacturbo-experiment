@@ -1,0 +1,46 @@
+Task: Replace the chain of if-else statements with a switch expression
+
+Compliant example:
+sealed interface Expression {}
+record Plus(Expression left, Expression right) implements Expression {}
+record Minus(Expression left, Expression right) implements Expression {}
+record Div(Expression left, Expression right) implements Expression {}
+
+int eval(Expression expr) {
+  return switch (expr) {
+    case Div(var left, var right) -> eval(left) / eval(right);
+    case Plus(var left, var right) -> eval(left) + eval(right);
+    case Minus(var left, var right) -> eval(left) - eval(right);
+  };
+}
+
+Noncompliant example:
+sealed interface Expression {}
+record Plus(Expression left, Expression right) implements Expression {}
+record Minus(Expression left, Expression right) implements Expression {}
+record Div(Expression left, Expression right) implements Expression {}
+
+int eval(Expression expr){
+  if(expr instanceof Plus plus){ // Noncompliant; should be replaced by a switch expression
+    return eval(plus.left) + eval(plus.right);
+  }else if(expr instanceof Div div){
+    return eval(div.left) / eval(div.right);
+  }else if(expr instanceof Minus minus){
+    return eval(minus.left) - eval(minus.right);
+  } else {
+    throw new IllegalArgumentException("Unknown expression");
+  }
+}
+
+Compliant example:
+enum Color { RED, GREEN, YELLOW }
+
+String name(Color c) {
+  return switch (c) {
+    case RED -> "red";
+    case GREEN -> "green";
+    case YELLOW -> "yellow";
+  };
+}
+
+Code:

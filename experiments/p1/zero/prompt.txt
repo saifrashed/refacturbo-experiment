@@ -1,0 +1,3 @@
+Task: Replace the chain of if-else statements with a switch expression
+
+Code: 

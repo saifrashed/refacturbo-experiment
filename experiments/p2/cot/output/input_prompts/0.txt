@@ -1,0 +1,27 @@
+Task: Strings should not be concatenated using '+' in a loop
+
+Q: Why is string concatenation using '+' in a loop problematic? 
+A: Strings in Java are immutable, meaning each concatenation with '+' creates a new string object. In a loop, this results in multiple new objects being created, copied, and discarded, which is computationally expensive and scales poorly with string length or loop iterations.
+
+Q: What is the performance impact of this approach? 
+A: Each iteration creates an intermediate string object, copies the existing string, appends the new part, and converts it back to a string. This leads to O(n²) time complexity for concatenating n strings, as the cost of copying grows with the string's length, potentially causing significant performance issues, especially with large arrays or attacker-controlled inputs.
+
+Q: What is a better alternative to string concatenation in a loop? 
+A: Using StringBuilder is more efficient because it maintains a mutable buffer, allowing appends without creating new objects each time. StringBuilder has O(n) time complexity for appending n strings, as it avoids repeated copying and object creation.
+
+Q: How should the code be rewritten to address this issue? \
+A: Replace the string concatenation with StringBuilder. Initialize a StringBuilder object, append each string in the loop using the append() method, and convert the final result to a string using toString().
+
+Code:
+
+    public static String generateFibonacciString(int numRepetitions) {
+        String result = "";
+        int a = 0, b = 1;
+        for (int x = 0; x < numRepetitions; x++) {
+            result += a + (x < numRepetitions - 1 ? ", " : "");
+            int next = a + b;
+            a = b;
+            b = next;
+        }
+        return result;
+    }

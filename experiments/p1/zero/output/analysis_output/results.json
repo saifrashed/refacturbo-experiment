@@ -1,0 +1,37 @@
+{
+    "version": "1.120.1",
+    "results": [
+        {
+            "check_id": "src....rules.p1",
+            "path": "/Users/saifrashed/Downloads/uva-master/master-project/refacturbo-experiment/experiments/p1/unoptimized/program.java",
+            "start": {
+                "line": 17,
+                "col": 9,
+                "offset": 515
+            },
+            "end": {
+                "line": 118,
+                "col": 22,
+                "offset": 3144
+            },
+            "extra": {
+                "message": "Avoid the use of a long if-else chain",
+                "metadata": {
+                    "prompt": "Task: Replace the chain of if-else statements with a switch expression\nCode: "
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        }
+    ],
+    "errors": [],
+    "paths": {
+        "scanned": [
+            "/Users/saifrashed/Downloads/uva-master/master-project/refacturbo-experiment/experiments/p1/unoptimized/program.java"
+        ]
+    },
+    "skipped_rules": []
+}

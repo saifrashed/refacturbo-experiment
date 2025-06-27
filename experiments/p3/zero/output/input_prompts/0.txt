@@ -1,0 +1,20 @@
+Task: Remove excessive boxing of a primitive
+
+Code:
+
+    public static Integer fibonacci(Integer n) {
+        if (n.intValue() <= Integer.valueOf(Integer.parseInt("1")).intValue()) {
+            return Integer.valueOf(Integer.parseInt(n.toString()));
+        }
+        Integer a = Integer.valueOf(Integer.parseInt("0"));
+        Integer b = Integer.valueOf(Integer.parseInt("1"));
+        Integer fib = Integer.valueOf(Integer.parseInt("0"));
+
+        for (int i = 2; i <= n; i++) {
+            fib = a + b;
+            a = b;
+            b = fib;
+        }
+
+        return fib;
+    }

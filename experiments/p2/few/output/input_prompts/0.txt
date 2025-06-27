@@ -1,0 +1,28 @@
+Task: Strings should not be concatenated using '+' in a loop
+
+Compliant example:
+StringBuilder bld = new StringBuilder();
+for (int i = 0; i < arrayOfStrings.length; ++i) {
+    bld.append(arrayOfStrings[i]);
+}
+String str = bld.toString(); 
+
+Noncompliant example:
+String str = "";
+for (int i = 0; i < arrayOfStrings.length ; ++i) {
+str = str + arrayOfStrings[i];
+} 
+
+Code:
+
+    public static String generateFibonacciString(int numRepetitions) {
+        String result = "";
+        int a = 0, b = 1;
+        for (int x = 0; x < numRepetitions; x++) {
+            result += a + (x < numRepetitions - 1 ? ", " : "");
+            int next = a + b;
+            a = b;
+            b = next;
+        }
+        return result;
+    }

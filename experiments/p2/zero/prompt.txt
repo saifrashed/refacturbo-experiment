@@ -1,0 +1,3 @@
+Task: Strings should not be concatenated using '+' in a loop
+
+Code:

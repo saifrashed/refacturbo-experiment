@@ -1,0 +1,17 @@
+Task: Replace the chain of if-else statements with a switch expression
+
+Compliant Example:
+sealed interface Expression {}
+record Plus(Expression left, Expression right) implements Expression {}
+record Minus(Expression left, Expression right) implements Expression {}
+record Div(Expression left, Expression right) implements Expression {}
+
+int eval(Expression expr) {
+  return switch (expr) {
+    case Div(var left, var right) -> eval(left) / eval(right);
+    case Plus(var left, var right) -> eval(left) + eval(right);
+    case Minus(var left, var right) -> eval(left) - eval(right);
+  };
+}
+
+Code:

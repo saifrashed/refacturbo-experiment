@@ -1,0 +1,9 @@
+Task: Replace the chain of if-else statements with a switch expression
+
+Q: What is the first step in converting an if-else chain to a switch expression?
+A: Identify the variable or expression being compared in the if-else chain and list all distinct cases, including any default or else block, to ensure the switch expression covers the same logic.
+
+Q: How should the if-else conditions be transformed into a switch expression?
+A: Map each if-else condition to a switch case, and include a default case if the original code has an else block.
+
+Code:
